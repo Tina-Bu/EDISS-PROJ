@@ -1,0 +1,12 @@
+{
+  "session_secret": "eg[isfd-8yF9-7w2315df{}+Ijsli;;to8",
+  "username": "jadmin",
+  "password": "admin",
+  "MySQL_host": "ediss-p3.c6xzjopfczba.us-east-1.rds.amazonaws.com",
+  "MySQL_port": "3306",
+  "MySQL_user": "admin",
+  "MySQL_password": "adminadmin",
+  "MySQL_database": "EDISS",
+  "user_table": "p2_user",
+  "prdct_table": "p2_prdct"
+} 

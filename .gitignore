@@ -1,0 +1,7 @@
+Tina-EDISS.pem
+/node_modules/*
+*.pdf
+*.csv
+test.json
+MattTest.json
+.idea/
