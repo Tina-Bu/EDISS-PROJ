@@ -7,6 +7,6 @@
   "MySQL_user": "admin",
   "MySQL_password": "adminadmin",
   "MySQL_database": "EDISS",
-  "user_table": "p2_user",
-  "prdct_table": "p2_prdct"
+  "user_table": "user",
+  "prdct_table": "product"
 } 
