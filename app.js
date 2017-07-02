@@ -27,6 +27,7 @@ app.use(session({
     cookie: {maxAge: 15 * 60 * 1000}
 }));
 
+
 // Set up all the routes
 app.use(require('./routes/login'));
 app.use(require('./routes/user'));

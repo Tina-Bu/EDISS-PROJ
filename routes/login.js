@@ -40,7 +40,6 @@ router.post('/logout', auth.ensureLoggedIn, function(req, res, next) {
     req.session.destroy(function(err){
         if(err) throw err;
         else {
-            req.session.login = false;
             console.log("You have been successfully logged out");
             res.send({"message": "You have been successfully logged out"});
         }
