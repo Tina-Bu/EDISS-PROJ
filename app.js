@@ -27,7 +27,6 @@ app.use(session({
     cookie: {maxAge: 15 * 60 * 1000}
 }));
 
-
 // Set up all the routes
 app.use(require('./routes/login'));
 app.use(require('./routes/user'));
@@ -46,4 +45,3 @@ DEVELOPER NOTES:
 - after install Nodemon, run the app using "upm start" instead of "node app"
 - do npm init to create the package.json in the new app folder
  */
-

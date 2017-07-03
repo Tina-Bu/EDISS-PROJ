@@ -66,6 +66,7 @@ CREATE TABLE user (
   user_type_id INT DEFAULT 1
 );
 ALTER TABLE user ADD CONSTRAINT UQ_Name UNIQUE (username);
+INSERT INTO user (fname, lname, username, password, user_type_id) VALUES ("Jenny", "Admin", "jadmin", "admin", 2);
 
 CREATE TABLE usertype (
 id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,

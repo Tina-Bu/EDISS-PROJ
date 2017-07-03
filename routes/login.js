@@ -18,7 +18,6 @@ router.use(cookieParser());
 
 router.post('/login', function(req, res) {
     var query = `SELECT fname FROM ${config.user_table} WHERE username = "${req.body.username}" AND password = "${req.body.password}"`;
-    req.session.user_name = req.body.username;
 
     DB.query(query, function(err, rows) {
         if(err) console.log(err);
@@ -29,6 +28,7 @@ router.post('/login', function(req, res) {
                 console.log("No matching account found");
                 res.send({"message": "There seems to be an issue with the username/password combination that you entered"});
             } else if (json.length === 1) {
+                req.session.username = req.body.username;
                 console.log("User logged in: First Name: " + json[0].fname + ", Username: " + req.body.username);
                 res.send({"message": `Welcome ${json[0].fname}`});
             }
