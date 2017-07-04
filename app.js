@@ -3,7 +3,7 @@
  */
 
 var express = require('express');
-var session = require('cookie-session');
+var cookieSession = require('cookie-session');
 var cookieParser = require('cookie-parser');
 var app = express();
 
@@ -20,10 +20,10 @@ app.set('views', 'app/views');
 app.use(cookieParser());
 
 // Specify session
-app.use(session({
-    secret: config.session_secret,
+app.use(cookieSession({
+    keys: [config.session_secret],
     name: 'session',
-    cookie: {maxAge: 15 * 60 * 1000}
+    maxAge: 15 * 60 * 1000
 }));
 
 // Set up all the routes
