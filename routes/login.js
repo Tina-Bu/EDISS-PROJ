@@ -31,6 +31,7 @@ router.post('/login', function(req, res) {
             } else if (json.length === 1) {
                 req.session.username = req.body.username;
                 console.log("User logged in: First Name: " + json[0].fname + ", Username: " + req.session.username);
+                res.session = req.session;
                 res.send({"message": `Welcome ${json[0].fname}`});
             }
         }

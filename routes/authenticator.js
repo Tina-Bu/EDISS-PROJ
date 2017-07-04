@@ -30,7 +30,7 @@ module.exports = {
             if(!req.body[key]) flag = false;
         }
         if(!flag) {
-            console.log("There are empty strings or NULL in the input");
+            // console.log("There are empty strings or NULL in the input");
             return res.send({"message": "The input you provided is not valid"});
         }
         next();
