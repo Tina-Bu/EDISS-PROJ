@@ -5,7 +5,7 @@ var config = require('../config.json');
 
 module.exports = {
     ensureLoggedIn: function (req, res, next){
-        if(req.session.username === undefined) {
+        if(!req.session.username) {
             console.log("You are not currently logged in" + req.session.username);
             return res.send({"message": "You are not currently logged in"});
         }
@@ -14,7 +14,7 @@ module.exports = {
 
     ensureAdmin: function (req, res, next) {
         console.log(req.session.username);
-        if (req.session.username === undefined) {
+        if (!req.session.username) {
             console.log("You are not currently logged in");
             return res.send({"message": "You are not currently logged in"});
         } else if (req.session.username !== config.username) {

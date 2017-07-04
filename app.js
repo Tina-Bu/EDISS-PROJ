@@ -2,11 +2,19 @@
  * Created by Tina on 6/10/17.
  */
 
-var express = require('express');
-var clientSession = require('client-sessions');
+
+var cookieSession = require('cookie-session')
+var express = require('express')
 var cookieParser = require('cookie-parser');
 var app = express();
 var config = require('./config.json');
+ 
+app.use(cookieSession({
+  name: 'session',
+  keys: [config.session_secret],
+  // Cookie Options 
+  maxAge: 15 * 60 * 1000 // 15 minutes
+}))
 
 app.set('port', process.env.PORT || 3000);
 // routes will have access to it by req.app.get('appData')
@@ -18,13 +26,6 @@ app.set('views', 'app/views');
 // Add cookie parsing functionality
 app.use(cookieParser());
 
-// Specify session
-app.use(clientSession({
-    cookieName: 'session',
-    secret: config.session_secret,
-    duration: 15 * 60 * 1000,
-    httpOnly:false
-}));
 
 // Set up all the routes
 app.use(require('./routes/login'));
