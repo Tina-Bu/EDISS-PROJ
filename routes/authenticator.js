@@ -1,7 +1,7 @@
 /**
  * Created by Tina on 6/14/17.
  */
-var config = require('../config');
+var config = require('../config.json');
 
 module.exports = {
     ensureLoggedIn: function (req, res, next){

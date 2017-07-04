@@ -3,7 +3,7 @@
  */
 
 var express = require('express');
-var session = require('express-session');
+var session = require('cookie-session');
 var cookieParser = require('cookie-parser');
 var app = express();
 
@@ -22,8 +22,7 @@ app.use(cookieParser());
 // Specify session
 app.use(session({
     secret: config.session_secret,
-    resave: false,
-    saveUninitialized: true, // saved a unitialized (new & not modified) session to the store
+    name: 'session',
     cookie: {maxAge: 15 * 60 * 1000}
 }));
 

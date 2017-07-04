@@ -37,13 +37,9 @@ router.post('/login', function(req, res) {
 });
 
 router.post('/logout', auth.ensureLoggedIn, function(req, res, next) {
-    req.session.destroy(function(err){
-        if(err) throw err;
-        else {
-            console.log("You have been successfully logged out");
-            res.send({"message": "You have been successfully logged out"});
-        }
-    });
+    req.session = null;
+    console.log("You have been successfully logged out");
+    res.send({"message": "You have been successfully logged out"});
 });
 
 module.exports = router;
