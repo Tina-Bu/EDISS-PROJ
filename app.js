@@ -3,10 +3,9 @@
  */
 
 var express = require('express');
-var cookieSession = require('cookie-session');
+var clientSession = require('client-sessions');
 var cookieParser = require('cookie-parser');
 var app = express();
-
 var config = require('./config.json');
 
 app.set('port', process.env.PORT || 3000);
@@ -20,10 +19,10 @@ app.set('views', 'app/views');
 app.use(cookieParser());
 
 // Specify session
-app.use(cookieSession({
-    keys: [config.session_secret],
-    name: 'session',
-    maxAge: 15 * 60 * 1000
+app.use(clientSession({
+    cookieName: 'session',
+    secret: config.session_secret,
+    duration: 15 * 60 * 1000
 }));
 
 // Set up all the routes
