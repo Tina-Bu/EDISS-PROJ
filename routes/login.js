@@ -29,7 +29,7 @@ router.post('/login', function(req, res) {
                 req.session.reset();
                 res.send({"message": "There seems to be an issue with the username/password combination that you entered"});
             } else if (json.length === 1) {
-                req.session.username = req.body.username;
+                req.session['username'] = req.body.username;
                 console.log("User logged in: First Name: " + json[0].fname + ", Username: " + req.session.username);
                 res.send({"message": `Welcome ${json[0].fname}`});
             }
