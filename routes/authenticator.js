@@ -13,11 +13,11 @@ module.exports = {
     },
 
     ensureAdmin: function (req, res, next) {
+        console.log(req.session.username);
         if (req.session.username === null) {
             console.log("You are not currently logged in");
             return res.send({"message": "You are not currently logged in"});
         } else if (req.session.username !== config.username) {
-            console.log(req.session.username);
             console.log("You are not an admin");
             return res.send({"message": "You must be an admin to perform this action"});
         }
