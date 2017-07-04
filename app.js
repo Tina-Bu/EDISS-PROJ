@@ -22,7 +22,8 @@ app.use(cookieParser());
 app.use(clientSession({
     cookieName: 'session',
     secret: config.session_secret,
-    duration: 15 * 60 * 1000
+    duration: 15 * 60 * 1000,
+    httpOnly:false
 }));
 
 // Set up all the routes
