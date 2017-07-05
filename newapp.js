@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 //var cookieParser = require('cookie-parser');
 var app = express();
 var config = require('./config.json');
-var DB = require('../DB.js');
+var DB = require('./DB.js');
 // app.use(cookieSession({
 //   name: 'session',
 //   keys: [config.session_secret],
