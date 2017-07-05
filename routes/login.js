@@ -4,9 +4,9 @@
 
 var express = require('express');
 var bodyParser = require('body-parser');
-var cookieParser = require('cookie-parser');
+//var cookieParser = require('cookie-parser');
 //var cookieSession = require('cookie-session');
-var cookieSession = require('client-sessions');
+//var cookieSession = require('client-sessions');
 var DB = require('../DB.js');
 
 var router = express.Router();
@@ -16,7 +16,7 @@ var auth = require('./authenticator.js');
 // Parse JSON body and store result in req.body
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: false }));
-router.use(cookieParser());
+//router.use(cookieParser());
 
 
 router.post('/login', function(req, res) {

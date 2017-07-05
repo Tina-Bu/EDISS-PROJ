@@ -1,9 +1,9 @@
 /**
  * Created by Tina on 6/10/17.
  */
-var cookieSession = require('cookie-session')
+var cookieSession = require('client-sessions')
 var express = require('express')
-var cookieParser = require('cookie-parser');
+//var cookieParser = require('cookie-parser');
 var app = express();
 var config = require('./config.json');
  
@@ -28,7 +28,7 @@ app.set('view engine', 'ejs');
 app.set('views', 'app/views');
 
 // Add cookie parsing functionality
-app.use(cookieParser());
+//app.use(cookieParser());
 
 // Set up all the routes
 app.use(require('./routes/login'));
