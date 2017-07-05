@@ -4,14 +4,14 @@
 var clientSession = require('client-sessions')
 var express = require('express')
 var bodyParser = require('body-parser');
-var cookieParser = require('cookie-parser');
+//var cookieParser = require('cookie-parser');
 var app = express();
 var config = require('./config.json');
 var DB = require('./DB.js');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false}));
-app.use(cookieParser());
+//app.use(cookieParser());
 app.use(clientSession({
   cookieName: 'session', // cookie name dictates the key name added to the request object
   secret: 'blargadeeblargblarg', // should be a large unguessable string
