@@ -1,8 +1,6 @@
 /**
  * Created by Tina on 6/10/17.
  */
-
-
 var cookieSession = require('cookie-session')
 var express = require('express')
 var cookieParser = require('cookie-parser');
