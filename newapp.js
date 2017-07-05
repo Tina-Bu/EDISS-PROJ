@@ -48,14 +48,14 @@ app.post('/login', function(req, res) {
     });
 });
 
-app.post('/logout', auth.ensureLoggedIn, function(req, res, next) {
+app.post('/logout', ensureLoggedIn, function(req, res, next) {
     // req.session = null;
     req.session.reset();
     console.log("You have been successfully logged out");
     res.send({"message": "You have been successfully logged out"});
 });
 
-app.post('/addProducts', auth.ensureAdmin, auth.ensureValidInput, function(req, res, next) {
+app.post('/addProducts', ensureAdmin, ensureValidInput, function(req, res, next) {
     // If not all fields are provided
     if(Object.keys(req.body).length !== 4) {
         res.send({"message": "The input you provided is not valid"});
@@ -92,7 +92,7 @@ app.post('/addProducts', auth.ensureAdmin, auth.ensureValidInput, function(req, 
     }
 });
 
-app.post('/modifyProduct', auth.ensureAdmin, auth.ensureValidInput, function(req, res, next) {
+app.post('/modifyProduct', ensureAdmin, ensureValidInput, function(req, res, next) {
     var sess = req.session;
 
     if(Object.keys(req.body).length === 4) {
@@ -126,7 +126,7 @@ app.post('/modifyProduct', auth.ensureAdmin, auth.ensureValidInput, function(req
     }
 });
 
-app.post('/viewProducts', auth.ensureValidInput, function(req, res, next) {
+app.post('/viewProducts', ensureValidInput, function(req, res, next) {
     var sess = req.session;
 
     // query db for product info
@@ -171,7 +171,7 @@ app.post('/viewProducts', auth.ensureValidInput, function(req, res, next) {
     });
 });
 
-app.post('/registerUser', auth.ensureValidInput, function(req, res) {
+app.post('/registerUser', ensureValidInput, function(req, res) {
     // If not all fields are provided
     if(Object.keys(req.body).length !== 9) {
         res.send({"message": "The input you provided is not valid"});
@@ -203,7 +203,7 @@ app.post('/registerUser', auth.ensureValidInput, function(req, res) {
     }
 });
 
-app.post('/updateInfo', auth.ensureLoggedIn, auth.ensureValidInput, function(req, res, next)  {
+app.post('/updateInfo', ensureLoggedIn, ensureValidInput, function(req, res, next)  {
     var sess = req.session;
     var new_username = sess.user_name;
     console.log("Information to be updated: ", req.body, Object.keys(req.body).length);
@@ -248,7 +248,7 @@ app.post('/updateInfo', auth.ensureLoggedIn, auth.ensureValidInput, function(req
     }
 });
 
-app.post('/viewUsers', auth.ensureAdmin, auth.ensureValidInput, function(req, res, next){
+app.post('/viewUsers', ensureAdmin, ensureValidInput, function(req, res, next){
     var sess = req.session;
 
     // query db for user info
