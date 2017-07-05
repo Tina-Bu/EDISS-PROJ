@@ -7,12 +7,18 @@ var cookieParser = require('cookie-parser');
 var app = express();
 var config = require('./config.json');
  
+// app.use(cookieSession({
+//   name: 'session',
+//   keys: [config.session_secret],
+//   // Cookie Options 
+//   maxAge: 15 * 60 * 1000 // valid for 15 minutes
+// }))
 app.use(cookieSession({
-  name: 'session',
-  keys: [config.session_secret],
-  // Cookie Options 
-  maxAge: 15 * 60 * 1000 // valid for 15 minutes
-}))
+  cookieName: 'session', // cookie name dictates the key name added to the request object
+  secret: 'blargadeeblargblarg', // should be a large unguessable string
+  duration: 24 * 60 * 60 * 1000, // how long the session will stay valid in ms
+  activeDuration: 1000 * 60 * 5 // if expiresIn < activeDuration, the session will be extended by activeDuration milliseconds
+}));
 
 app.set('port', process.env.PORT || 3000);
 // routes will have access to it by req.app.get('appData')
