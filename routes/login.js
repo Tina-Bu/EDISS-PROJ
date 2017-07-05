@@ -9,7 +9,7 @@ var bodyParser = require('body-parser');
 var cookieSession = require('client-sessions');
 var DB = require('../DB.js');
 
-var router = express.Router();
+var router = express();
 var config = require('../config.json');
 var auth = require('./authenticator.js');
 
