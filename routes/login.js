@@ -26,7 +26,6 @@ router.post('/login', function(req, res) {
             var json = JSON.parse(string);
             if(json.length === 0) {
                 console.log("No matching account found");
-                req.session.reset();
                 res.send({"message": "There seems to be an issue with the username/password combination that you entered"});
             } else if (json.length === 1) {
                 req.session.username = req.body.username;

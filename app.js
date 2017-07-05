@@ -13,7 +13,7 @@ app.use(cookieSession({
   name: 'session',
   keys: [config.session_secret],
   // Cookie Options 
-  maxAge: 15 * 60 * 1000 // 15 minutes
+  maxAge: 15 * 60 * 1000 // valid for 15 minutes
 }))
 
 app.set('port', process.env.PORT || 3000);
@@ -25,7 +25,6 @@ app.set('views', 'app/views');
 
 // Add cookie parsing functionality
 app.use(cookieParser());
-
 
 // Set up all the routes
 app.use(require('./routes/login'));
