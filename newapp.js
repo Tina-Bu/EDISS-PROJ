@@ -4,16 +4,14 @@
 var clientSession = require('client-sessions')
 var express = require('express')
 var bodyParser = require('body-parser');
-//var cookieParser = require('cookie-parser');
+var cookieParser = require('cookie-parser');
 var app = express();
 var config = require('./config.json');
 var DB = require('./DB.js');
-// app.use(cookieSession({
-//   name: 'session',
-//   keys: [config.session_secret],
-//   // Cookie Options 
-//   maxAge: 15 * 60 * 1000 // valid for 15 minutes
-// }))
+
+router.use(bodyParser.json());
+router.use(bodyParser.urlencoded({ extended: false}));
+router.use(cookieParser());
 app.use(clientSession({
   cookieName: 'session', // cookie name dictates the key name added to the request object
   secret: 'blargadeeblargblarg', // should be a large unguessable string
