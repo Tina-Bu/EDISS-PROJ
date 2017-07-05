@@ -16,7 +16,7 @@ var auth = require('./authenticator.js');
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use(cookieParser());
-app.use(cookieSession({
+router.use(cookieSession({
   name: 'session',
   keys: [config.session_secret],
   // Cookie Options 
