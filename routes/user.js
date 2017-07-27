@@ -4,10 +4,10 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
-var DB = require('../DB.js');
+var DB = require('../MySQLDB.js');
 
 var router = express.Router();
-var config = require('../config');
+const CONFIG = require('../config');
 var auth = require('./authenticator.js');
 
 router.use(bodyParser.json());
@@ -18,29 +18,22 @@ router.post('/registerUser', auth.ensureValidInput, function(req, res) {
     // If not all fields are provided
     if(Object.keys(req.body).length !== 9) {
         res.send({"message": "The input you provided is not valid"});
-        console.log("Not all required information is provided");
     } else {
-        var col = "(fname, lname, address, city, state, zip, email, username, password)";
-        var values = "(";
-        for (var key in req.body) {
-            values += `"${req.body[key]}", `;
-        }
-        values = values.substring(0, values.length-2);
-        values += ")";
         // var values = `("${req.body.fname}", "${req.body.lname}", "${req.body.address}", "${req.body.city}", "${req.body.state}", "${req.body.zip}", "${req.body.email}", "${req.body.username}", "${req.body.password}")`;
-        var sql = `INSERT INTO ${config.user_table} ${col} VALUES ${values};`;
+        var sql = "INSERT INTO " + CONFIG.user_table + " (fname, lname, address, city, state, zip, email, username, password) \
+            VALUES ('" + req.body.fname + "', '" + req.body.lname + "', '" + req.body.address + "', '" +
+            req.body.city + "', '" + req.body.state + "', '" + req.body.zip + "', '" + req.body.email + "', '" +
+            req.body.username + "', '" + req.body.password + "');"
 
         // Create new user into db
         DB.insert(sql, function(err, result) {
             if(err){       
                 if (err.code === 'ER_DUP_ENTRY') {
-                    console.log(`Duplicate username already existed, please choose another one`);
                     res.send({"message": "The information you provided is not valid"});
                 } else console.log(err);
             }
             else if(result.affectedRows === 1){
                 res.send({"message": `${req.body.fname} was registered successfully`});
-                console.log(`1 new user registered, first name is ${req.body.fname}`);
             }
         });
     }
@@ -59,7 +52,7 @@ router.post('/updateInfo', auth.ensureLoggedIn, auth.ensureValidInput, function(
             if(key === 'username') new_username = req.body[key];
         });
         set = set.slice(0, set.length - 2);
-        var update = `UPDATE ${config.user_table} SET ${set} WHERE username = "${sess.user_name}";`
+        var update = `UPDATE ${CONFIG.user_table} SET ${set} WHERE username = "${sess.user_name}";`
 
         // Handle username Duplication Entry error if user wants to update to an existing username
         DB.insert(update, function(err, result) {
@@ -70,7 +63,7 @@ router.post('/updateInfo', auth.ensureLoggedIn, auth.ensureValidInput, function(
                 } else console.log(err);
             } else if (result.affectedRows === 1) {
                 sess.user_name = new_username;
-                var select = `SELECT fname FROM ${config.user_table} WHERE username = "${sess.user_name}";`;
+                var select = `SELECT fname FROM ${CONFIG.user_table} WHERE username = "${sess.user_name}";`;
                 DB.query(select, function (err, rows) {
                     if (err) console.log(err);
                     else {
@@ -96,7 +89,7 @@ router.post('/viewUsers', auth.ensureAdmin, auth.ensureValidInput, function(req,
 
     // query db for user info
 
-    var query = `SELECT fname, lname, username FROM ${config.user_table}`;
+    var query = `SELECT fname, lname, username FROM ${CONFIG.user_table}`;
     if(typeof req.body.fname !== "undefined") {
         query += ` WHERE fname = "${req.body.fname}"`;
         if(typeof req.body.lname !== "undefined") query += ` AND lname = "${req.body.lname}";`;

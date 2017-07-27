@@ -1,12 +1,17 @@
 {
   "session_secret": "eg[isfd-8yF9-7w2315df{}+Ijsli;;to8",
+  "aws_access_key_id": "AKIAJ64JGTWWQQHI525A",
+  "aws_secret_access_key": "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",       
   "username": "jadmin",
   "password": "admin",
-  "MySQL_host": "ediss-p3.c6xzjopfczba.us-east-1.rds.amazonaws.com",
-  "MySQL_port": "3306",
-  "MySQL_user": "admin",
-  "MySQL_password": "adminadmin",
+  "MySQL_host": "localhost",
+  "MySQL_user": "root",
+  "MySQL_password": "root",
   "MySQL_database": "EDISS",
   "user_table": "user",
-  "prdct_table": "product"
+  "prdct_table": "product",
+  "order_table": "user_order",
+  "rec_table": "recommendation",
+  "DynamoDB_order_table": "Order",
+  "DynamoDB_recommendation_table": "Recommendation"
 } 

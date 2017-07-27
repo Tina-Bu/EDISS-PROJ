@@ -1,0 +1,134 @@
+// var dynamo = require('dynamodb');
+// var Joi = require('joi');
+// const CONFIG = require('./config.json');
+
+// dynamo.AWS.config.update({
+// 	accessKeyId: CONFIG.aws_access_key_id, 
+// 	secretAccessKey: CONFIG.aws_secret_access_key, 
+// 	region: "us-east-2"
+// });
+
+// dynamo.define('Order', {
+//   hashKey : 'username',
+//   schema : {
+//   	username: Joi.string().required(),
+//     productsPurchased: Joi.array().includes(Joi.object().keys({
+//       asin : Joi.string(),
+//       quantity  : Joi.number()
+//     }))
+//   }
+// });
+
+// dynamo.define('Recommendation', {
+// 	hashKey: 'asin1'
+// 	schema: {
+// 		asin_main: Joi.string().required(),
+// 		rec: Joi.array().includes(Joi.object().keys({
+//       		asin : Joi.string(),
+//       		quantity  : Joi.number()
+//     	}))
+// 	}
+// });
+
+// dynamo.createTables({
+//   'Order': {readCapacity: 20, writeCapacity: 20},
+//   'Recommendation': {readCapacity: 20, writeCapacity: 20}
+// } function (err) {
+//   if(err) {
+//     console.log('Error creating tables', err);
+//   } else {
+//     console.log('table are now created and active');
+//   }
+// });
+
+// var productList = [];
+// for (var i = product.length - 1; i >= 0; i--) {
+// 	productList.push({asin: product[i], count: 0})
+// }
+
+
+// exports.updatePurchase = function(username, asinList, callback) {
+
+// 	var products = null;
+// 	for (var i = asinList.length - 1; i >= 0; i--) {
+// 		products = {asin: asinList[i], quantity: 1};
+// 	}
+// 	Order.create({
+// 		username: username,
+// 		productsPurchased: productList
+// 	});
+// 	Order.update();
+// }
+
+// exports.updateRecommendation = function(asinList) {
+// 	for (var i = asinList.length - 1; i >= 0; i--) {
+// 		for (var j = asinList.length - 1; j >= 0 && j !==i; j--) {
+// 			// insert (asinList[i], asinList[j]) into DynamoDB
+// 			var item = {asin1: asinList[i], rec: [{asin2: asinList[j], quantity: 1}]};
+
+// 			Order.create([item1, item2, item3], function (err, acccounts) {
+// 			  console.log('created 3 accounts in DynamoDB', accounts);
+// 			});
+
+// 			  var params = {};
+// 			  params.ConditionExpression = '#i <> :x';
+// 			  params.ExpressionAttributeNames = {'#i' : 'id'};
+// 			  params.ExpressionAttributeValues = {':x' : 123};
+			 
+//   User.create({id : 123, name : 'Kurt Warner' }, params, function (error, acc) { ... });
+// 			Recommendation.create({
+// 				asin1: asinList[i],
+// 				rec: asinList[j]
+// 			}) 
+// 		}
+// 	}
+// }
+
+// // var docClient = new AWS.DynamoDB.DocumentClient();
+
+// // exports.updatePurchase = function(username, asin, callback) {
+// // 	var params = {
+// // 	  'TableName' : ,
+// // 	  'Key': {
+// // 	    'username' : username
+// // 	  },
+// // 	  'UpdateExpression' : "SET #attrName = list_append(if_not_exists(#attrName, :empty_list), :attrValue)",
+// // 	  'ExpressionAttributeNames' : {
+// // 	    '#attrName' : 'productsPurchased'
+// // 	  },
+// // 	  'ExpressionAttributeValues' : {
+// // 	    ':attrValue' : `{"asin": ${asin}}`,
+// // 	    ':empty_list': []
+// // 	  }
+// // 	};
+
+// // 	UpdateItemRequest request = new UpdateItemRequest();
+// // 	request.setTableName(CONFIG.DynamoDB_order_table);
+// // 	request.setKey(Collections.singletonMap("hashkey", new AttributeValue().withS("my_key")));
+// // 	request.setUpdateExpression("list_append(:prepend_value, my_list)");
+// // 	request.setExpressionAttributeValues(
+// // 	    Collections.singletonMap(":prepend_value", 
+// // 	        new AttributeValue().withN("1"))
+// // 	    );
+// // 	dynamodb.updateItem(request);
+
+// // 	docClient.get(params, function(err, data) {
+// // 	    if (err) {
+// // 	    	callback(err, null);
+// // 	    } else {
+// // 	    	callback(null, data);
+// // 	    }
+// // 	});
+// // }
+
+// // exports.updateRecommendation = function(asin, callback) {
+// // 	//DynamoDB_recommendation_table
+// // }
+
+// // Order Table
+
+// // {"username": "username1",
+// // 	"productsPurchased":[
+// // 		{"asin": asin1, "quantity": 2},
+// // 		{"asin": asin2, "quantity": 4}]
+// // }

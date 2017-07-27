@@ -4,29 +4,20 @@
 
 var express = require('express');
 var bodyParser = require('body-parser');
-//var cookieParser = require('cookie-parser');
-//var cookieSession = require('cookie-session');
-var cookieSession = require('client-sessions');
-var DB = require('../DB.js');
+var cookieParser = require('cookie-parser');
+var DB = require('../MySQLDB.js');
 
-var router = express();
-var config = require('../config.json');
+var router = express.Router();
+const CONFIG = require('../config.json');
 var auth = require('./authenticator.js');
 
 // Parse JSON body and store result in req.body
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: false }));
-//router.use(cookieParser());
-
-router.use(cookieSession({
-  cookieName: 'session', // cookie name dictates the key name added to the request object
-  secret: 'blargadeeblargblarg', // should be a large unguessable string
-  duration: 24 * 60 * 60 * 1000, // how long the session will stay valid in ms
-  activeDuration: 1000 * 60 * 5 // if expiresIn < activeDuration, the session will be extended by activeDuration milliseconds
-}));
+router.use(cookieParser());
 
 router.post('/login', function(req, res) {
-    var query = `SELECT fname FROM ${config.user_table} WHERE username = "${req.body.username}" AND password = "${req.body.password}"`;
+    var query = `SELECT fname FROM ${CONFIG.user_table} WHERE username = "${req.body.username}" AND password = "${req.body.password}"`;
 
     DB.query(query, function(err, rows) {
         if(err) console.log(err);
@@ -38,8 +29,7 @@ router.post('/login', function(req, res) {
                 res.send({"message": "There seems to be an issue with the username/password combination that you entered"});
             } else if (json.length === 1) {
                 req.session.username = req.body.username;
-                console.log("User logged in: First Name: " + json[0].fname + ", Username: " + req.session.username);
-                // res.session = req.session;
+                console.log("User logged in: First Name: " + json[0].fname + ", Username: " + req.body.username);
                 res.send({"message": `Welcome ${json[0].fname}`});
             }
         }
@@ -47,8 +37,7 @@ router.post('/login', function(req, res) {
 });
 
 router.post('/logout', auth.ensureLoggedIn, function(req, res, next) {
-    // req.session = null;
-    req.session.reset();
+    req.session = null;
     console.log("You have been successfully logged out");
     res.send({"message": "You have been successfully logged out"});
 });
