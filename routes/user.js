@@ -42,7 +42,6 @@ router.post('/registerUser', auth.ensureValidInput, function(req, res) {
 router.post('/updateInfo', auth.ensureLoggedIn, auth.ensureValidInput, function(req, res, next)  {
     var sess = req.session;
     var new_username = sess.user_name;
-    console.log("Information to be updated: ", req.body, Object.keys(req.body).length);
 
     if(Object.keys(req.body).length > 0) {
         // Construct the SQL query
@@ -58,7 +57,6 @@ router.post('/updateInfo', auth.ensureLoggedIn, auth.ensureValidInput, function(
         DB.insert(update, function(err, result) {
             if (err) {
                 if (err.code === 'ER_DUP_ENTRY') {
-                    console.log(`ER_DUP_ENTRY for username detected, your username is still: ${sess.user_name}`);
                     res.send({"message": "The information you provided is not valid"});
                 } else console.log(err);
             } else if (result.affectedRows === 1) {
@@ -69,10 +67,8 @@ router.post('/updateInfo', auth.ensureLoggedIn, auth.ensureValidInput, function(
                     else {
                         var string = JSON.stringify(rows);
                         var json = JSON.parse(string);
-                        console.log(json.length);
                         if (json.length === 1) {
                             res.send({"message": `${json[0].fname} your information was successfully updated`});
-                            console.log(`${json[0].fname} your information was successfully updated`);
                         }
                     }
                 });
@@ -98,7 +94,6 @@ router.post('/viewUsers', auth.ensureAdmin, auth.ensureValidInput, function(req,
         if(typeof req.body.lname !== "undefined") query += ` WHERE lname = "${req.body.lname}"`;
         else query += ";";
     }
-    console.log(query);
 
     DB.query(query, function(err, rows) {
         if(err) console.log(err);
@@ -108,7 +103,6 @@ router.post('/viewUsers', auth.ensureAdmin, auth.ensureValidInput, function(req,
             if(json.length === 0) {
                 res.send({"message": "There are no users that match that criteria"});
             } else if (json.length > 0) {
-                console.log(json.length + " users matched conditions found: " + json);
                 res.send({"message": "The action was successful", "user": json});
             }
         }

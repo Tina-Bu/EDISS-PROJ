@@ -81,7 +81,6 @@ router.post('/modifyProduct', AUTH.ensureAdmin, AUTH.ensureValidInput, function(
                     else {
                         var string = JSON.stringify(rows);
                         var json = JSON.parse(string);
-                        console.log(json.length);
                         if (json.length === 1) {
                             res.send({"message": `${json[0].productName} was successfully updated`});
                         }
@@ -105,21 +104,21 @@ router.post('/buyProducts', AUTH.ensureLoggedIn, AUTH.ensureValidInput, function
     }
     query = query.slice(0, query.length - 4);
     query += ';';
-    console.log(query);
+    //console.log(query);
 
     DB.query(query, function(err, rows) {
         if (err) console.log(err);
         else {
             var string = JSON.stringify(rows);
             var json = JSON.parse(string);
-            console.log("json: ", json);
+            // console.log("json: ", json);
             // get how many distinct products were purchased
             var product_set = new Set();
             for (var i = req.body.products.length - 1; i >= 0; i--) {
                 product_set.add(req.body.products[i].asin);
             }
             if(json.length !== product_set.size) {
-                console.log("sql result length:", json.length, "product_set size", product_set.size);
+                //console.log("sql result length:", json.length, "product_set size", product_set.size);
                 // if not all asins are in the database
                 res.send({"message": NO_PRODUCT_MSG});
             } else {
@@ -162,7 +161,7 @@ router.post('/productsPurchased', AUTH.ensureAdmin, AUTH.ensureValidInput, funct
             if(json.length === 0) res.send({"message": NO_USER_MSG});
             else {
                 res.send({"message": ACTION_SUCCESS_MSG, "products": json});
-                console.log("product purchased checked successfully")
+                // console.log("product purchased checked successfully")
             }       
         }
     })
@@ -181,7 +180,7 @@ router.post('/getRecommendations', AUTH.ensureLoggedIn, AUTH.ensureValidInput, f
                 var hash = {};
                 for (var i = json.length - 1; i >= 0; i--) {
                     var tmp = json[i].orderDetails.split(', ');
-                    console.log(tmp);
+                    // console.log(tmp);
                     for (var i = tmp.length - 1; i >= 0; i--) {
                         if(hash[tmp[i]])
                             hash[tmp[i]] += 1;
@@ -198,7 +197,7 @@ router.post('/getRecommendations', AUTH.ensureLoggedIn, AUTH.ensureValidInput, f
                 sortable.sort(function(a, b) {
                     return b[1] - a[1];
                 });
-                console.log(sortable);
+                // console.log(sortable);
                 if(sortable.length >= 5) {
                     var products = [];
                     for (var i = 4; i >= 0; i--) {

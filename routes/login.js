@@ -25,11 +25,11 @@ router.post('/login', function(req, res) {
             var string = JSON.stringify(rows);
             var json = JSON.parse(string);
             if(json.length === 0) {
-                console.log("No matching account found");
+                // console.log("No matching account found");
                 res.send({"message": "There seems to be an issue with the username/password combination that you entered"});
             } else if (json.length === 1) {
                 req.session.username = req.body.username;
-                console.log("User logged in: First Name: " + json[0].fname + ", Username: " + req.body.username);
+                // console.log("User logged in: First Name: " + json[0].fname + ", Username: " + req.body.username);
                 res.send({"message": `Welcome ${json[0].fname}`});
             }
         }
@@ -38,7 +38,7 @@ router.post('/login', function(req, res) {
 
 router.post('/logout', auth.ensureLoggedIn, function(req, res, next) {
     req.session = null;
-    console.log("You have been successfully logged out");
+    // console.log("You have been successfully logged out");
     res.send({"message": "You have been successfully logged out"});
 });
 
