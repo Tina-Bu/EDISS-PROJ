@@ -22,7 +22,7 @@ var client = require('elasticsearch').Client({
 });
 
 AWS.config.update({
-  credentials: new AWS.Credentials('AKIAJXAH5MSNO4ITT2BA', 'Oc9A1jW6c6FBiVFHEn12mAU0tbZgvS9YNl8/Dxzj')
+  credentials: new AWS.Credentials(CONFIG.ES_username, CONFIG.ES_password)
 });
 
 
@@ -31,7 +31,6 @@ var valid = function(input) {
 		return false;
 	else return true;
 }
-
 
 router.post('/viewProducts', AUTH.ensureValidInput, function(req, res, next) {
     var sess = req.session;
