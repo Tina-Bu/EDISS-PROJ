@@ -20,8 +20,8 @@ router.post('/registerUser', auth.ensureValidInput, function(req, res) {
         res.send({"message": "The input you provided is not valid"});
     } else {
         // var values = `("${req.body.fname}", "${req.body.lname}", "${req.body.address}", "${req.body.city}", "${req.body.state}", "${req.body.zip}", "${req.body.email}", "${req.body.username}", "${req.body.password}")`;
-        var sql = "INSERT INTO " + CONFIG.user_table + " (fname, lname, address, city, state, zip, email, username, password) \
-            VALUES ('" + req.body.fname + "', '" + req.body.lname + "', '" + req.body.address + "', '" +
+        var sql = "INSERT INTO " + CONFIG.user_table + " (fname, lname, address, city, state, zip, email, username, password) VALUES ('" 
+            + req.body.fname + "', '" + req.body.lname + "', '" + req.body.address + "', '" +
             req.body.city + "', '" + req.body.state + "', '" + req.body.zip + "', '" + req.body.email + "', '" +
             req.body.username + "', '" + req.body.password + "');"
 
