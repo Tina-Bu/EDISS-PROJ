@@ -167,24 +167,24 @@ router.post('/productsPurchased', AUTH.ensureAdmin, AUTH.ensureValidInput, funct
     })
 });
 
-router.post('/viewProducts', AUTH.ensureValidInput, function(req, res, next) {
-     var sess = req.session;
-    // query DynamoDB for customer history order info
-    var query = `SELECT asin, productName FROM ${CONFIG.prdct_table} WHERE productName = "${req.body.keyword}";`
+// router.post('/viewProducts', AUTH.ensureValidInput, function(req, res, next) {
+//      var sess = req.session;
+//     // query DynamoDB for customer history order info
+//     var query = `SELECT asin, productName FROM ${CONFIG.prdct_table} WHERE productName = "${req.body.keyword}";`
 
-    DB.query (query, function(err, rows) {
-        if(err) console.log(err);
-        else {
-            var string = JSON.stringify(rows);
-            var json = JSON.parse(string); 
-            if(json.length === 0) res.send({"message": "There are no products that match that criteria"});
-            else {
-                res.send({"message": ACTION_SUCCESS_MSG, "products": json});
-                // console.log("product purchased checked successfully")
-            }       
-        }
-    })   
-});
+//     DB.query (query, function(err, rows) {
+//         if(err) console.log(err);
+//         else {
+//             var string = JSON.stringify(rows);
+//             var json = JSON.parse(string); 
+//             if(json.length === 0) res.send({"message": "There are no products that match that criteria"});
+//             else {
+//                 res.send({"message": ACTION_SUCCESS_MSG, "products": json});
+//                 // console.log("product purchased checked successfully")
+//             }       
+//         }
+//     })   
+// });
 router.post('/getRecommendations', AUTH.ensureLoggedIn, AUTH.ensureValidInput, function(req, res, next) {
     res.send({"message": ACTION_SUCCESS_MSG, "products": []});
 });
