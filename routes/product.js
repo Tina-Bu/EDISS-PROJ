@@ -184,7 +184,7 @@ router.post('/viewProducts', AUTH.ensureValidInput, function(req, res, next) {
             }       
         }
     })   
-}
+});
 router.post('/getRecommendations', AUTH.ensureLoggedIn, AUTH.ensureValidInput, function(req, res, next) {
     res.send({"message": ACTION_SUCCESS_MSG, "products": []});
 });
