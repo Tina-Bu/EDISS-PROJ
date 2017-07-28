@@ -51,8 +51,8 @@ router.post('/viewProducts', AUTH.ensureValidInput, function(req, res, next) {
 					  // 	query: keyword,
 					  // 	fields: ['title', 'description']}
 	  				// },
-	  				{term: {'asin': asin}},
-	  				{term: {'categories': group}}
+	  				{match: {'asin': asin}},
+	  				{match: {'categories': group}}
 	  				]
 	  			}
 			}
@@ -63,8 +63,8 @@ router.post('/viewProducts', AUTH.ensureValidInput, function(req, res, next) {
 		  	query: {
 	  			bool: {
 	  				must: [ 
-	  				{term: {'asin': asin}},
-	  				{term: {'categories': group}}
+	  				{match: {'asin': asin}},
+	  				{match: {'categories': group}}
 	  				]
 	  			}
 			}
@@ -80,7 +80,7 @@ router.post('/viewProducts', AUTH.ensureValidInput, function(req, res, next) {
 						// query: keyword,
 					 //  	fields: ['title', 'description']}
 	  			// 	},
-	  				{term: {'asin': asin}}
+	  				{match: {'asin': asin}}
 	  				]
 	  			}
 
@@ -99,7 +99,7 @@ router.post('/viewProducts', AUTH.ensureValidInput, function(req, res, next) {
 						//   	fields: ['title', 'description']
 						// }
 	  			// 	},
-	  				{term: {'categories': group}}
+	  				{match: {'categories': group}}
 	  				]
 	  			}
 
@@ -120,14 +120,14 @@ router.post('/viewProducts', AUTH.ensureValidInput, function(req, res, next) {
 	else if(!valid(asin) && valid(group) && !valid(keyword))
 		query = {
 			query: {
-				term: {'categories': group}
+				match: {'categories': group}
 	  		}
 		}
 
 	else if(valid(asin) && !valid(group) && !valid(keyword))
 		query = {
 			query: {
-				term: {'asin': asin}
+				match: {'asin': asin}
 			}
 		}
 
