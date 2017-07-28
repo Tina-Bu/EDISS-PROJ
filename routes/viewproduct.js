@@ -8,18 +8,30 @@ var cookieParser = require('cookie-parser');
 var router       = express.Router();
 const CONFIG     = require('../config.json');
 const AUTH         = require('./authenticator.js');
-var elasticsearch = require('elasticsearch');
 const NO_PRODUCT_MSG = "There are no products that match that criteria";
 
-var client = new elasticsearch.Client({
-  host: '128.237.134.84:9200'
+
+// configure the region for aws-sdk
+var AWS = require('aws-sdk');
+AWS.config.update({ region: 'us-east-1' });
+
+// create an elasticsearch client for your Amazon ES
+var client = require('elasticsearch').Client({
+  hosts: [ 'https://search-tina-ediss-mrhguikebg26wrblscgeozwb2y.us-east-1.es.amazonaws.com' ],
+  connectionClass: require('http-aws-es')
 });
+
+AWS.config.update({
+  credentials: new AWS.Credentials('AKIAJ64JGTWWQQHI525A', '8mNIMql4kTMcqYtm5ZMuT2l3q4q0BzYC7IcoUZBF')
+});
+
 
 var valid = function(input) {
 	if(input === undefined || input === null)
 		return false;
 	else return true;
 }
+
 
 router.post('/viewProducts', AUTH.ensureValidInput, function(req, res, next) {
     var sess = req.session;
