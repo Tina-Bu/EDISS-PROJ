@@ -17,7 +17,6 @@ module.exports = {
     },
 
     ensureAdmin: function (req, res, next) {
-        console.log(req.session.username);
         if (req.session.username === undefined || req.session.username === null) {
             // console.log("You are not currently logged in");
             return res.send({"message": NOT_LOGGED_IN_MSG});
