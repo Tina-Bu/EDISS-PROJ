@@ -28,7 +28,7 @@ app.use(session({
 app.use(require('./routes/login'));
 app.use(require('./routes/user'));
 app.use(require('./routes/product'));
-app.use(require('./routes/viewproduct'));
+// app.use(require('./routes/viewproduct'));
 
 
 app.listen(app.get('port'), function() {
