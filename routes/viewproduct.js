@@ -22,7 +22,7 @@ var client = require('elasticsearch').Client({
 });
 
 AWS.config.update({
-  credentials: new AWS.Credentials('AKIAJ64JGTWWQQHI525A', '8mNIMql4kTMcqYtm5ZMuT2l3q4q0BzYC7IcoUZBF')
+  credentials: new AWS.Credentials('AKIAJXAH5MSNO4ITT2BA', 'Oc9A1jW6c6FBiVFHEn12mAU0tbZgvS9YNl8/Dxzj')
 });
 
 
