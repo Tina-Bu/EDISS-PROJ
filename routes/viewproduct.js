@@ -132,8 +132,8 @@ router.post('/viewProducts', AUTH.ensureValidInput, function(req, res, next) {
 		}
 
 	client.search({
-		index: 'product',
-	    type: 'products',
+		index: 'products',
+	    type: 'flipkart',
 	    body: query
 	}).then(function (resp) {
 	    hits = resp.hits.hits;
