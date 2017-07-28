@@ -14,6 +14,6 @@
   "rec_table": "recommendation",
   "DynamoDB_order_table": "Order",
   "DynamoDB_recommendation_table": "Recommendation",
-  "ES_username": 'AKIAJXAH5MSNO4ITT2BA',
-  "ES_password": 'Oc9A1jW6c6FBiVFHEn12mAU0tbZgvS9YNl8/Dxzj'
+  "ES_username": "AKIAJXAH5MSNO4ITT2BA",
+  "ES_password": "Oc9A1jW6c6FBiVFHEn12mAU0tbZgvS9YNl8/Dxzj"
 } 
