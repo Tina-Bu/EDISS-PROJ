@@ -166,57 +166,60 @@ router.post('/productsPurchased', AUTH.ensureAdmin, AUTH.ensureValidInput, funct
         }
     })
 });
-
 router.post('/getRecommendations', AUTH.ensureLoggedIn, AUTH.ensureValidInput, function(req, res, next) {
-    var sess = req.session;
-    var query = `SELECT * FROM ${CONFIG.rec_table} WHERE orderDetails LIKE '%${req.body.asin}%'`;
-    DB.query(query, function(err, rows) {
-        if(err) console.log(err);
-        else {
-            var string = JSON.stringify(rows);
-            var json = JSON.parse(string); 
-            if(json.length === 0) res.send({"message": NO_REC_MSG});
-            else {
-                var hash = {};
-                for (var i = json.length - 1; i >= 0; i--) {
-                    var tmp = json[i].orderDetails.split(', ');
-                    // console.log(tmp);
-                    for (var i = tmp.length - 1; i >= 0; i--) {
-                        if(hash[tmp[i]])
-                            hash[tmp[i]] += 1;
-                        else 
-                            hash[tmp[i]] = 1;
-                    }
-                }
-                delete hash[req.body.asin];
-                // console.log(hash);
-                var sortable = [];
-                for (var x in hash) {
-                    sortable.push([x, hash[x]]);
-                }
-                sortable.sort(function(a, b) {
-                    return b[1] - a[1];
-                });
-                // console.log(sortable);
-                if(sortable.length >= 5) {
-                    var products = [];
-                    for (var i = 4; i >= 0; i--) {
-                        products.push({"asin": sortable[i][0]});
-                    }
-                    res.send({"message": ACTION_SUCCESS_MSG, "products": products});
-                }
-                else{
-                    var products = [];
-                    for (var i = sortable.length - 1; i >= 0; i--) {
-                        products.push({"asin": sortable[i][0]});
-                    }
-                    res.send({"message": ACTION_SUCCESS_MSG, "products": products});
-                }
-            }           
+    res.send({"message": ACTION_SUCCESS_MSG, "products": []});
+}
 
-        }
-    })
-});
+// router.post('/getRecommendations', AUTH.ensureLoggedIn, AUTH.ensureValidInput, function(req, res, next) {
+//     var sess = req.session;
+//     var query = `SELECT * FROM ${CONFIG.rec_table} WHERE orderDetails LIKE '%${req.body.asin}%'`;
+//     DB.query(query, function(err, rows) {
+//         if(err) console.log(err);
+//         else {
+//             var string = JSON.stringify(rows);
+//             var json = JSON.parse(string); 
+//             if(json.length === 0) res.send({"message": NO_REC_MSG});
+//             else {
+//                 var hash = {};
+//                 for (var i = json.length - 1; i >= 0; i--) {
+//                     var tmp = json[i].orderDetails.split(', ');
+//                     // console.log(tmp);
+//                     for (var i = tmp.length - 1; i >= 0; i--) {
+//                         if(hash[tmp[i]])
+//                             hash[tmp[i]] += 1;
+//                         else 
+//                             hash[tmp[i]] = 1;
+//                     }
+//                 }
+//                 delete hash[req.body.asin];
+//                 // console.log(hash);
+//                 var sortable = [];
+//                 for (var x in hash) {
+//                     sortable.push([x, hash[x]]);
+//                 }
+//                 sortable.sort(function(a, b) {
+//                     return b[1] - a[1];
+//                 });
+//                 // console.log(sortable);
+//                 if(sortable.length >= 5) {
+//                     var products = [];
+//                     for (var i = 4; i >= 0; i--) {
+//                         products.push({"asin": sortable[i][0]});
+//                     }
+//                     res.send({"message": ACTION_SUCCESS_MSG, "products": products});
+//                 }
+//                 else{
+//                     var products = [];
+//                     for (var i = sortable.length - 1; i >= 0; i--) {
+//                         products.push({"asin": sortable[i][0]});
+//                     }
+//                     res.send({"message": ACTION_SUCCESS_MSG, "products": products});
+//                 }
+//             }           
+
+//         }
+//     })
+// });
 module.exports = router;
 
 

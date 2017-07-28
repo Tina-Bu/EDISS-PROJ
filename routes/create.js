@@ -5,7 +5,7 @@
 var elasticsearch = require('elasticsearch');
 var execute = false;
 var records = 0;
-var chunkSize = 50;
+var chunkSize = 20;
 var lineReader = require('line-reader');
 var datapath = './InputData/ProductRecords.json';
 
