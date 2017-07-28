@@ -168,7 +168,7 @@ router.post('/productsPurchased', AUTH.ensureAdmin, AUTH.ensureValidInput, funct
 });
 router.post('/getRecommendations', AUTH.ensureLoggedIn, AUTH.ensureValidInput, function(req, res, next) {
     res.send({"message": ACTION_SUCCESS_MSG, "products": []});
-}
+});
 
 // router.post('/getRecommendations', AUTH.ensureLoggedIn, AUTH.ensureValidInput, function(req, res, next) {
 //     var sess = req.session;
