@@ -40,88 +40,88 @@ router.post('/viewProducts', AUTH.ensureValidInput, function(req, res, next) {
     var hits = "";
     var query = "";
 
-    if(valid(asin) && valid(group) && valid(keyword))
-    	query = {
-    		query: {
-	  			bool:{
-	  				must: [ 
-	  				{match: {'title': keyword}},
-	  				// {multi_match: {
-					  // 	query: keyword,
-					  // 	fields: ['title', 'description']}
-	  				// },
-	  				{match: {'asin': asin}},
-	  				{match: {'categories': group}}
-	  				]
-	  			}
-			}
-		}
+    // if(valid(asin) && valid(group) && valid(keyword))
+    // 	query = {
+    // 		query: {
+	//   			bool:{
+	//   				must: [ 
+	//   				{match: {'title': keyword}},
+	//   				// {multi_match: {
+	// 				  // 	query: keyword,
+	// 				  // 	fields: ['title', 'description']}
+	//   				// },
+	//   				{match: {'asin': asin}},
+	//   				{match: {'categories': group}}
+	//   				]
+	//   			}
+	// 		}
+	// 	}
 
-	else if(valid(asin) && valid(group) && !valid(keyword)) 
-		query = {
-		  	query: {
-	  			bool: {
-	  				must: [ 
-	  				{match: {'asin': asin}},
-	  				{match: {'categories': group}}
-	  				]
-	  			}
-			}
-		}
+	// else if(valid(asin) && valid(group) && !valid(keyword)) 
+	// 	query = {
+	// 	  	query: {
+	//   			bool: {
+	//   				must: [ 
+	//   				{match: {'asin': asin}},
+	//   				{match: {'categories': group}}
+	//   				]
+	//   			}
+	// 		}
+	// 	}
 
-	else if(valid(asin) && !valid(group) && valid(keyword))
-		query = {
-	  		query: {
-	  			bool:{
-	  				must: [ 
-	  				{match: {'title': keyword}},
-	  			// 	{multi_match: {
-						// query: keyword,
-					 //  	fields: ['title', 'description']}
-	  			// 	},
-	  				{match: {'asin': asin}}
-	  				]
-	  			}
+	// else if(valid(asin) && !valid(group) && valid(keyword))
+	// 	query = {
+	//   		query: {
+	//   			bool:{
+	//   				must: [ 
+	//   				{match: {'title': keyword}},
+	//   			// 	{multi_match: {
+	// 					// query: keyword,
+	// 				 //  	fields: ['title', 'description']}
+	//   			// 	},
+	//   				{match: {'asin': asin}}
+	//   				]
+	//   			}
 
-			}
-		}
+	// 		}
+	// 	}
 
-	else if(!valid(asin) && valid(group) && valid(keyword))
-		query= {
-			query: {
-	  			bool:{
-	  				must: [ 
-	  				{match: {'title': keyword}},
-	  			// 	{
-	  			// 		multi_match: {
-						//   	type: 'phrase',
-						//   	fields: ['title', 'description']
-						// }
-	  			// 	},
-	  				{match: {'categories': group}}
-	  				]
-	  			}
+	// else if(!valid(asin) && valid(group) && valid(keyword))
+	// 	query= {
+	// 		query: {
+	//   			bool:{
+	//   				must: [ 
+	//   				{match: {'title': keyword}},
+	//   			// 	{
+	//   			// 		multi_match: {
+	// 					//   	type: 'phrase',
+	// 					//   	fields: ['title', 'description']
+	// 					// }
+	//   			// 	},
+	//   				{match: {'categories': group}}
+	//   				]
+	//   			}
 
-			}
-		}
+	// 		}
+	// 	}
 
-	else if(!valid(asin) && !valid(group) && valid(keyword))
-		query = {
-			query: {
-				match: {'title': keyword}
-				// multi_match: {
-				//   	type: 'phrase',
-				//   	fields: ['title', 'description']
-				// }
-	  		}
-		}
+	// else if(!valid(asin) && !valid(group) && valid(keyword))
+	// 	query = {
+	// 		query: {
+	// 			match: {'title': keyword}
+	// 			// multi_match: {
+	// 			//   	type: 'phrase',
+	// 			//   	fields: ['title', 'description']
+	// 			// }
+	//   		}
+	// 	}
 
-	else if(!valid(asin) && valid(group) && !valid(keyword))
-		query = {
-			query: {
-				match: {'categories': group}
-	  		}
-		}
+	// else if(!valid(asin) && valid(group) && !valid(keyword))
+	// 	query = {
+	// 		query: {
+	// 			match: {'categories': group}
+	//   		}
+	// 	}
 
 	else if(valid(asin) && !valid(group) && !valid(keyword))
 		query = {
