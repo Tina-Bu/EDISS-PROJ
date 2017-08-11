@@ -123,7 +123,7 @@ router.post('/viewProducts', AUTH.ensureValidInput, function(req, res, next) {
 	//   		}
 	// 	}
 
-	else if(valid(asin) && !valid(group) && !valid(keyword))
+	if(valid(asin) && !valid(group) && !valid(keyword))
 		query = {
 			query: {
 				match: {'asin': asin}
