@@ -17,7 +17,7 @@ AWS.config.update({ region: 'us-east-1' });
 
 // create an elasticsearch client for your Amazon ES
 var client = require('elasticsearch').Client({
-  hosts: [ 'https://search-tina-ediss1-liguwipn6xx2fi6gm73wncg7hm.us-east-1.es.amazonaws.com' ],
+  hosts: [ 'https://search-edissp5-ucvcl2z7jslg37m75qujs63coy.us-east-1.es.amazonaws.com' ],
   connectionClass: require('http-aws-es')
 });
 
